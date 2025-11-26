@@ -161,8 +161,8 @@ jupyter notebook
 - ano, mes
 
 ### Entidade
-- orgao_codigo, orgao_nome
-- unidade_codigo, unidade_nome
+- orgao_nome
+- unidade_nome
 
 ### Fonte
 - fonte_recurso_codigo, fonte_recurso_nome
@@ -182,18 +182,19 @@ jupyter notebook
 ## 👥 Equipe
 
 **Grupo 5** - Projeto Banco de Dados
-Arthur Fernandes              <afol> 
-Arthur Torres                  <atl>
-Gabriel Rio                   <grtc>
-Ian Cerqueira                <idhac>
-Italo Cauã                    <icbo>
-Jésper Ian                  <jisbra>
-Maia                          <maf5>
-Thiago Alves                  <tam6>
+
+| Nome | Login |
+|------|-------|
+| Arthur Fernandes | `afol` |
+| Arthur Torres | `atl` |
+| Gabriel Rio | `grtc` |
+| Ian Cerqueira | `idhac` |
+| Italo Cauã | `icbo` |
+| Jésper Ian | `jisbra` |
+| Maia | `maf5` |
+| Thiago Alves | `tam6` |
+
 
 ## 📄 Licença
 
 Este projeto é desenvolvido para fins acadêmicos na disciplina de Banco de Dados.
-
-
-**Última atualização:** Novembro 2024
