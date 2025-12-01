@@ -58,3 +58,45 @@ tratamento_valores AS (
     FROM
         stg_receitas_unificadas
 ),
+
+-- 4. Padronização de Textos (Rubricas e Fontes)
+padronizacao_textos AS (
+    SELECT
+        ano_dados,
+        mes,
+        orgao_nome,
+        orgao_codigo,
+        unidade_nome,
+        unidade_codigo,
+        categoria_economica_nome,
+        categoria_economica_codigo,
+        rubrica_receita_codigo,
+        fonte_recurso_codigo,
+        subfonte_receita_nome,
+        subfonte_receita_codigo,
+        receita_prevista,
+        receita_prevista_acrescimo,
+        receita_prevista_atualizada,
+        receita_arrecadada,
+
+        -- Simplificação da Fonte de Recurso
+
+        CASE
+            WHEN UPPER(fonte_recurso_nome) LIKE '%NÃO VINCULADOS%' THEN 'RECURSOS NÃO VINCULADOS'
+            WHEN UPPER(fonte_recurso_nome) LIKE '%CRÉDITO%' THEN 'RECURSOS DE OPERAÇÕES DE CRÉDITO'
+            ELSE fonte_recurso_nome
+        END AS fonte_recurso_nome,
+
+        -- Simplificação da Rubrica e Correção de Encoding (? SUS)
+        CASE 
+            WHEN rubrica_receita_nome LIKE '%CONTRIBUIÇÕES SOCIAIS ESPECÍFICAS DE ESTADOS%' THEN 'CONTRIBUIÇÕES SOCIAIS ESPECÍFICAS DE ESTADOS, DF E MUNICÍPIOS'
+            WHEN rubrica_receita_nome LIKE '%TRANSFERÊNCIAS DE CONVÊNIOS DOS ESTADOS E DF%' THEN 'TRANSFERÊNCIAS DE CONVÊNIOS DOS ESTADOS E DF E DE SUAS ENTIDADES'
+            WHEN rubrica_receita_nome LIKE '%TRANSFERÊNCIAS DE RECURSOS DO SISTEMA ÚNICO DE SAÚDE%' THEN 'TRANSFERÊNCIAS DE RECURSOS DO SISTEMA ÚNICO DE SAÚDE - SUS'
+            WHEN rubrica_receita_nome LIKE '%TRANSFERÊNCIAS DE RECURSOS DO FUNDO NACIONAL DE ASSISTÊNCIA SOCIAL%' THEN 'TRANSFERÊNCIAS DE RECURSOS DO FUNDO NACIONAL DE ASSISTÊNCIA SOCIAL - FNAS'
+            -- O replace abaixo corrige o erro de caractere estranho
+            ELSE REPLACE(rubrica_receita_nome, '? SUS', '- SUS') 
+        END AS rubrica_receita_nome
+
+    FROM
+        tratamento_valores
+),
