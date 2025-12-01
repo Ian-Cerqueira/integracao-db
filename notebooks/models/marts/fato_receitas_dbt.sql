@@ -15,7 +15,7 @@ SELECT
     base.receita_prevista_acrescimo,
     base.receita_prevista_atualizada,
     base.receita_arrecadada
-FROM vacinados AS base
+FROM receitas AS base
 
 LEFT JOIN tempo
     ON base.ano = tempo.ano
