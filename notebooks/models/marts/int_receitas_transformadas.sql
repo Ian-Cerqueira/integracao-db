@@ -32,6 +32,7 @@ stg_receitas_transformadas AS (
 
 tratamento_valores AS (
     SELECT
+        -- Mantemos as colunas de identificação
         ano_dados,
         mes,
         orgao_nome,
@@ -40,12 +41,20 @@ tratamento_valores AS (
         unidade_codigo,
         categoria_economica_nome,
         categoria_economica_codigo,
+        rubrica_receita_nome,
         rubrica_receita_codigo,
+        fonte_recurso_nome,
         fonte_recurso_codigo,
         subfonte_receita_nome,
         subfonte_receita_codigo,
-        receita_prevista,
-        receita_prevista_acrescimo,
-        receita_prevista_atualizada,
-        receita_arrecadada,
-)
+        
+        -- Tratamento das colunas de valor (R$ 1.000,00 -> 1000.00)
+        -- Removemos 'R$', removemos o ponto de milhar e trocamos a vírgula por ponto
+        CAST(NULLIF(REGEXP_REPLACE(receita_prevista, '[^0-9,]', '', 'g'), '') AS NUMERIC) / 100 AS receita_prevista,
+        CAST(REPLACE(REPLACE(REPLACE(receita_prevista_acrescimo, 'R$', ''), '.', ''), ',', '.') AS NUMERIC) AS receita_prevista_acrescimo,
+        CAST(REPLACE(REPLACE(REPLACE(receita_prevista_atualizada, 'R$', ''), '.', ''), ',', '.') AS NUMERIC) AS receita_prevista_atualizada,
+        CAST(REPLACE(REPLACE(REPLACE(receita_arrecadada, 'R$', ''), '.', ''), ',', '.') AS NUMERIC) AS receita_arrecadada
+
+    FROM
+        stg_receitas_unificadas
+),
