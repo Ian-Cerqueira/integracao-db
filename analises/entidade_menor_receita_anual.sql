@@ -9,7 +9,7 @@ FROM (
         t.ano,
         SUM(f.receita_arrecadada) AS receita_total_anual
     FROM 
-        receitas_etl_final AS f
+         analytics_etl.tabela_fato AS f
         inner JOIN dim_tempo AS t
             ON f.id_tempo_sk = t.id_tempo_sk
         inner JOIN dim_entidade AS e
