@@ -7,15 +7,15 @@
 -- 1. CTEs para pegar os dados brutos de cada tabela que seu Python carregou
 
 with raw_2021 AS (
-    SELECT *, '2021' AS ano_dados FROM raw."2021_receitas_transformadas"
+    SELECT *, '2021' AS ano_dados FROM raw."2021_receitas_raw_data"
 ),
 
 raw_2022 AS (
-    SELECT *, '2022' AS ano_dados FROM raw."2022_receitas_transformadas"
+    SELECT *, '2022' AS ano_dados FROM raw."2022_receitas_raw_data"
 ),
 
 raw_2023 AS (
-    SELECT *, '2023' AS ano_dados FROM raw."2023_receitas_transformadas"
+    SELECT *, '2023' AS ano_dados FROM raw."2023_receitas_raw_data"
 ),
 
 -- 2. Unificando tudo em um lugar só
