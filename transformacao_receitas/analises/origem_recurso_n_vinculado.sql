@@ -1,6 +1,6 @@
 SELECT
     dim_origem.rubrica_receita_nome,
-    ROUND(SUM(fato.receita_arrecadada),2) AS valor_total_arrecadado_livre
+    ROUND(CAST(SUM(fato.receita_arrecadada) AS DECIMAL),2) AS valor_total_arrecadado_livre
 FROM
     analytics_etl.tabela_fato AS fato 
 JOIN
@@ -13,3 +13,4 @@ GROUP BY
 ORDER BY
     valor_total_arrecadado_livre DESC 
 LIMIT 10;
+
