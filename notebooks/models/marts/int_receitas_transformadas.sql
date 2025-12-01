@@ -100,3 +100,34 @@ padronizacao_textos AS (
     FROM
         tratamento_valores
 ),
+
+-- 5. Seleção Final e Renomeação
+selecao_final AS (
+    SELECT
+        CAST(ano_dados AS INTEGER) AS ano,
+        CAST(mes AS INTEGER) AS mes,
+        orgao_nome,
+        orgao_codigo,
+        unidade_nome,
+        unidade_codigo,
+        categoria_economica_nome,
+        categoria_economica_codigo,
+        rubrica_receita_nome,
+        rubrica_receita_codigo,
+        fonte_recurso_nome,
+        fonte_recurso_codigo,
+        
+        -- Renomeando Subfonte para Fonte Origem
+        subfonte_receita_nome AS fonte_origem_receita_nome,
+        subfonte_receita_codigo AS fonte_origem_receita_codigo,
+        
+        receita_prevista,
+        receita_prevista_acrescimo,
+        receita_prevista_atualizada,
+        receita_arrecadada
+
+    FROM
+        padronizacao_textos
+)
+
+SELECT * FROM selecao_final
