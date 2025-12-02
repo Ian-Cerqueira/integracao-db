@@ -8,10 +8,10 @@ WITH receitas_ordenadas AS (
             ORDER BY SUM(f.receita_arrecadada) DESC, e.orgao_nome ASC
         ) AS rank_receita
     FROM 
-        analytics_etl.tabela_fato f
-        INNER JOIN dim_tempo t
+        analytics_etl.tabela_fato AS f
+        INNER JOIN dim_tempo AS t
             ON f.id_tempo_sk = t.id_tempo_sk
-        INNER JOIN dim_entidade e
+        INNER JOIN dim_entidade AS e
             ON f.id_entidade_sk = e.id_entidade_sk
     GROUP BY
         e.orgao_nome,
